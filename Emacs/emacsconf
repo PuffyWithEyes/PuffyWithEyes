@@ -62,8 +62,8 @@
     (define-key map (kbd "C-н н")   'copy-line)
     (define-key map (kbd "C-y Y")   (lambda () (interactive) (copy-line 1) (yank)))
     (define-key map (kbd "C-н Н")   (lambda () (interactive) (copy-line 1) (yank)))
-    (define-key map (kbd "C-c")     'kill-ring-save)
-    (define-key map (kbd "C-с")     'kill-ring-save)
+    (define-key map (kbd "C-c c")   'kill-ring-save)
+    (define-key map (kbd "C-с с")   'kill-ring-save)
     (define-key map (kbd "C-v")     'yank)
     (define-key map (kbd "C-м")     'yank)
     (define-key map (kbd "C-d d")   'kill-region)
@@ -81,13 +81,13 @@
 	(define-key map (kbd "C-w n")   'make-frame)
 	(define-key map (kbd "C-ц т")   'make-frame)
     (define-key map (kbd "C-L")     'windmove-up)
-    (define-key map (kbd "C-Д")     'windmove-up)
+    (define-key map (kbd "C-д")     'windmove-up)
     (define-key map (kbd "C-J")     'windmove-left)
-    (define-key map (kbd "C-О")     'windmove-left)
+    (define-key map (kbd "C-о")     'windmove-left)
     (define-key map (kbd "C-:")     'windmove-right)
-    (define-key map (kbd "C-Ж")     'windmove-right)
-    (define-key map (kbd "C-K")     'windmove-down)
-    (define-key map (kbd "C-Л")     'windmove-down)
+    (define-key map (kbd "C-ж")     'windmove-right)
+	(define-key map (kbd "C-K")     'windmove-down)
+    (define-key map (kbd "C-л")     'windmove-down)
 	(define-key map (kbd "C-x t")   'term)
 	(define-key map (kbd "C-ч е")   'term)
 	(define-key map (kbd "<f4>")    'ff-find-other-file)
@@ -291,9 +291,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#2d2a2e" :foreground "#fcfcfa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "SRC" :family "Hack")))))
 
-(use-package all-the-icons-ibuffer
-  :ensure t
-  :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
+;; (use-package all-the-icons-ibuffer
+;;   :ensure t
+;;   :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq ns-use-native-fullscreen t)
