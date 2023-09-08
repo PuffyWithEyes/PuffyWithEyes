@@ -63,7 +63,7 @@
     (define-key map (kbd "C-y Y")   (lambda () (interactive) (copy-line 1) (yank)))
     (define-key map (kbd "C-н Н")   (lambda () (interactive) (copy-line 1) (yank)))
     (define-key map (kbd "C-c c")   'kill-ring-save)
-    (define-key map (kbd "C-с с")   'kill-ring-save)
+    (define-key map (kbd "C-c с")   'kill-ring-save)
     (define-key map (kbd "C-v")     'yank)
     (define-key map (kbd "C-м")     'yank)
     (define-key map (kbd "C-d d")   'kill-region)
