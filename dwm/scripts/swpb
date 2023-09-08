@@ -51,7 +51,7 @@ ss_with_selection() {
 
 # Search in browser directly through dmenu 
 Search() {
-    URL='https://duckduckgo.com/?q='
+    URL='https://ya.ru/search/?text='
     QUERY=$(echo '' | dmenu -p "Search:")
     if [ -n "$QUERY" ]; then
     xdg-open "${URL}${QUERY}" 2> /dev/null

@@ -86,7 +86,7 @@ static const Layout layouts[] = {
 
 
 static const char *powermenu[]  = { "/home/puffy/.config/dwm/scripts/dwm_powermenu.sh", NULL };
-static const char *searchmenu[] = { "/bin/bash", "-c", "/usr/local/bin/swpb", "s" };
+static const char *searchmenu[] = { "/home/puffy/.config/dwm/scripts/swpb", "-w", NULL };
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[]    = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont };
