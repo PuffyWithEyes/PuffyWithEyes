@@ -100,4 +100,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias neofetch="neofetch --ascii ~/.config/neofetch/ascii.txt"
+alias minecraft="java -jar ~/minecraft/TLauncher-*.jar"
 
