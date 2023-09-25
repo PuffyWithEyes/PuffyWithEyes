@@ -15,10 +15,31 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term foot
+set $firefox firefox
+set $emacs emacsclient -c
+set $telegram telegram-desktop
+set $thunar thunar
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show drun
+set $menu wofi --allow-images --show drun
+set $smenu wofi --allow-images --show run
+set $lockman exec bash ~/.config/sway/scripts/lockman.sh
+set $powermenu exec bash ~/.config/sway/scripts/powermenu.sh
+set $screenshot exec bash ~/.config/sway/scripts/screenshot.sh
+set $ws1 1.
+set $ws2 2.
+set $ws3 3.ξ
+set $ws4 4.
+set $ws5 5.
+set $ws6 6.
+set $ws7 7.
+set $ws8 8.
+set $ws9 9.
+set $ws10 10.
+
+exec bash ~/.config/sway/scripts/emacs.sh
+exec bash ~/.config/sway/scripts/waybar.sh  
 
 gaps inner 7
 gaps outer 0
@@ -26,14 +47,21 @@ gaps outer 0
 default_border pixel 3
 default_floating_border pixel 3
 
-client.background #ff00ff
+# class                  border  background text    indicator child_border
+client.background                #ffffff
+client.focused           #f8d2b8 #000000    #ffffff #fae4da   #f7c1a7
+client.focused_inactive  #463d39 #000000    #ffffff #463d39   #463d39
+client.focused_tab_title #463d39 #ffffff    #ffffff 
+client.unfocused         #463d39 #000000    #ffffff #463d39   #463d39
+client.urgent            #ffffff #ffffff    #ffffff #ffffff   #ffffff
+client.placeholder       #ffffff #ffffff    #ffffff #ffffff   #ffffff
 
-font Hack 10
+font JetBrainsMono 10
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Downloads/wide-red-forest-1x7eujomvbn5v4ew.webp fill
+# output * bg ~/Pictures/1675493890_gas-kvas-com-p-fonovii-risunok-vkhod-47.png fill
 #
 # Example configuration:
 #
@@ -46,11 +74,9 @@ output * bg ~/Downloads/wide-red-forest-1x7eujomvbn5v4ew.webp fill
 # Example configuration:
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 5400 'swaylock -f -c 000000' \
+         timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
-
-set $lockman exec bash ~/.config/sway/scripts/lockman.sh
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -61,7 +87,7 @@ set $lockman exec bash ~/.config/sway/scripts/lockman.sh
 # Example configuration:
 #
 #   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
+#       dwt enabled#2d2725
 #       tap enabled
 #       natural_scroll enabled
 #       middle_emulation enabled
@@ -74,17 +100,41 @@ set $lockman exec bash ~/.config/sway/scripts/lockman.sh
 #
 # Basics:
 #
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+    bindsym F1 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym F2 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+    for_window [title="TelegramDesktop"] move container to workpace $ws4
+    for_window [title="Emacs"] move container workspace $ws3
+    for_window [title="Firefox"] move container to workspace $ws2
+
     bindsym $mod+Ctrl+l exec $lockman
+    bindsym $mod+q exec $powermenu
+    bindsym $mod+Shift+s exec $screenshot
 
     # Start a terminal
     bindsym $mod+Return exec $term
-  
+
+    bindsym $mod+Shift+f exec $firefox
+    bindsym $mod+Shift+e exec $emacs
+    bindsym $mod+Shift+t exec $telegram
+    bindsym $mod+Shift+o exec $thunar
+
     # Kill focused window
     bindsym $mod+c kill
 
     # Start your launcher
     bindsym $mod+space exec $menu
-
+    bindsym $mod+Ctrl+space exec $smenu
+#2d2725
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -96,7 +146,7 @@ set $lockman exec bash ~/.config/sway/scripts/lockman.sh
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -125,27 +175,27 @@ set $lockman exec bash ~/.config/sway/scripts/lockman.sh
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
+    bindsym $mod+0 workspace $ws10
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+    bindsym $mod+Shift+1 move container to workspace $ws1
+    bindsym $mod+Shift+2 move container to workspace $ws2
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws8
+    bindsym $mod+Shift+9 move container to workspace $ws9
+    bindsym $mod+Shift+0 move container to workspace $ws10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -154,8 +204,8 @@ set $lockman exec bash ~/.config/sway/scripts/lockman.sh
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym $mod+b splitv
+    bindsym $mod+v splith
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -210,30 +260,41 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
+##2d2725
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-
+#bar {
+    # position top
+    
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    # status_command 
+  
 
-    colors {
-        statusline #02315E
-        background #B9848C
-        inactive_workspace #684279 #806491 #02315E  
-    }
+#    colors {
+#        statusline #fbcbbc
+#        background #2d2725
+#        inactive_workspace #684279 #463d39 #fbcbbc
+#    }
+#}
+
+input * {
+     xkb_layout "us,ru"
+     xkb_variant ","
+     xkb_options "grp:shifts_toggle"
 }
 
 
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout "us,ru"
-    xkb_variant ","
-    xkb_options "grp:shifts_toggle"
+input type:touchpad {
+    tap enabled
+    natural_scroll disabled
 }
+
+
+corner_radius 5
+shadows enable
+shadows_on_csd enable
 
 
 include /etc/sway/config.d/*
