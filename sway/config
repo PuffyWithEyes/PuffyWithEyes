@@ -27,6 +27,9 @@ set $smenu wofi --allow-images --show run
 set $lockman exec bash ~/.config/sway/scripts/lockman.sh
 set $powermenu exec bash ~/.config/sway/scripts/powermenu.sh
 set $screenshot exec bash ~/.config/sway/scripts/screenshot.sh
+set $wol_up exec bash ~/.config/sway/scripts/wpctl_volume_control.sh 5%+
+set $wol_down exec bash ~/.config/sway/scripts/wpctl_volume_control.sh 5%-
+set $wol_mute exec bash ~/.config/sway/scripts/wpctl_volume_control.sh mute-toggle
 set $ws1 1.
 set $ws2 2.
 set $ws3 3.ξ
@@ -61,7 +64,7 @@ font JetBrainsMono 10
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg ~/Pictures/1675493890_gas-kvas-com-p-fonovii-risunok-vkhod-47.png fill
+# output * bg ~/Pictures/furry.jpg fill
 #
 # Example configuration:
 #
@@ -100,17 +103,17 @@ exec swayidle -w \
 #
 # Basics:
 #
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume $wol_up
+    bindsym XF86AudioLowerVolume $wol_down
+    bindsym XF86AudioMute $wol_mute
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioNext exec playerctl next
     bindsym XF86AudioPrev exec playerctl previous
-    bindsym F1 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym F2 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym F1 $wol_down
+    bindsym F2 $wol_up
 
     for_window [title="TelegramDesktop"] move container to workpace $ws4
     for_window [title="Emacs"] move container workspace $ws3
