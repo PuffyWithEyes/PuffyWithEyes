@@ -70,7 +70,11 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	aliases
+	git
+	zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,6 +103,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias neofetch="neofetch --ascii ~/.config/neofetch/ascii.txt"
+alias neofetch="neofetch --ascii ~/.config/neofetch/ascii.txt | lolcat"
 alias minecraft="java -jar ~/minecraft/TLauncher-*.jar"
 
+
+eval $(thefuck --alias)
